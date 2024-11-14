@@ -11,11 +11,11 @@ pico_sdk_init()
 
 add_library(pico_eth)
 
-target_include_directories(${PROJECT_NAME} PUBLIC 
+target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/.
 )
 
-pico_generate_pio_header(${PROJECT_NAME}  
+pico_generate_pio_header(${PROJECT_NAME}
         ${CMAKE_CURRENT_LIST_DIR}/ethserdes.pio
 )
 
@@ -35,4 +35,5 @@ target_link_libraries(${PROJECT_NAME}
     pico_time
     pico_sync
     pico_mem_ops
+    pico_rand
 )

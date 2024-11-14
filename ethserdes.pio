@@ -15,17 +15,17 @@ init:
 .wrap
 send_0:
     set pins, 0b10  [5]
-    set pins, 0b01  [2]    
-next:               ;(5)
-    jmp !osre nextt
+    set pins, 0b01  [2]
+next_1:             ;(5)
+    jmp !osre next_2
     jmp stop
-nextt:
+next_2:
     out X, 1
     jmp !X send_0
 send_1:
     set pins, 0b01  [5]
     set pins, 0b10  [1]
-    jmp next
+    jmp next_1
 
 .program eth_det
 reset:
@@ -33,7 +33,7 @@ reset:
     irq wait 0
 waitd0:
     wait 0 pin 0
-.wrap_target    
+.wrap_target
     in pins, 1      [4]
     mov X, ISR
     jmp X!=Y continue
@@ -51,17 +51,17 @@ incc:
 continue:
     jmp pin waitd0
     wait 1 pin 0
-.wrap 
+.wrap
 
 .program eth_des
 waite0:
     wait 0 pin 0
-.wrap_target    
+.wrap_target
     wait 0 irq 4
     in pins, 1      [6]
     jmp pin waite0
     wait 1 pin 0
-.wrap   
+.wrap
 
 % c-sdk {
     #include "hardware/clocks.h"
@@ -119,7 +119,7 @@ waite0:
 
         pio_sm_set_pins_with_mask(pio, sm, 0u, 3u << pin_tx);
         pio_sm_set_pindirs_with_mask(pio, sm, ~0u, 3u << pin_tx);
-        
+
         sm_config_set_set_pins(&c, pin_tx, 2);
         sm_config_set_out_shift(&c, true, true, 8);
         sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_TX);
