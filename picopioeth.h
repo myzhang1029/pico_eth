@@ -7,16 +7,10 @@
 #ifndef __PICO_PIO_ETH__
 #define __PICO_PIO_ETH__
 
+#include <stdbool.h>
 #include <stdint.h>
-#include <stdio.h>
-#include <string.h>
-#include "pico/stdlib.h"
-#include "pico/lock_core.h"
-#include "pico/critical_section.h"
-#include "hardware/dma.h"
+
 #include "hardware/pio.h"
-#include "hardware/irq.h"
-#include "ethserdes.pio.h"
 
 #define PICO_PIO_ETH_MTU 1500u
 #define SFD_SIZE 8u
@@ -50,7 +44,7 @@ struct eth_pio_diag_struct
     uint32_t diag_rx_framing;
     uint32_t diag_rx_ring_overrun;
     uint32_t diag_rx_fifo_overrun;
-    
+
     uint32_t diag_tx_raw_bytes;
 };
 

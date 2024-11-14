@@ -31,9 +31,7 @@ target_link_libraries(${PROJECT_NAME}
     hardware_irq
     hardware_pio
     pico_lwip
+    pico_rand
     pico_stdlib
     pico_time
-    pico_sync
-    pico_mem_ops
-    pico_rand
 )

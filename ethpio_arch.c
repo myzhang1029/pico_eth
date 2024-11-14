@@ -6,6 +6,16 @@
 
 #include "ethpio_arch.h"
 
+#include <string.h>
+
+#include "pico/time.h"
+
+#include "lwip/etharp.h"
+#include "lwip/init.h"
+#include "lwip/netif.h"
+#include "lwip/pbuf.h"
+#include "lwip/timeouts.h"
+
 static err_t netif_set_opts(struct netif *netif);
 int process_frames(const void *frame, int frame_len);
 static err_t netif_output(struct netif *netif, struct pbuf *p);
@@ -35,7 +45,7 @@ void eth_pio_arch_poll(void)
     while (cFlag && siz > 0)
     {
         struct pbuf *p = pbuf_alloc(PBUF_RAW, siz, PBUF_RAM);
-        
+
         if (p != NULL)
         {
             if (eth_rx_get(p->payload))
@@ -62,7 +72,7 @@ void eth_pio_arch_poll(void)
 
 bool eth_pio_arch_init(ethpio_parameters_t *params)
 {
-    if (eth_hw_init((params->pioNum == 0) ? pio0 : pio1, params->tx_neg_pin, params->rx_pin))
+    if (eth_hw_init(PIO_INSTANCE(params->pio_num), params->tx_neg_pin, params->rx_pin))
     {
         memcpy(mac_address, params->mac_address, 6);
         strcpy(hostname_str, params->hostname);
@@ -74,9 +84,6 @@ bool eth_pio_arch_init(ethpio_parameters_t *params)
 
         netif_set_default(&netif);
         netif_set_up(&netif);
-
-        if (params->enable_dhcp_client)
-            dhcp_start(&netif);
 
         return true;
     }

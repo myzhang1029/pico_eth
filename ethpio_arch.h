@@ -7,17 +7,10 @@
 #ifndef __ETHPIO_ARCH_H__
 #define __ETHPIO_ARCH_H__
 
+#include <stdbool.h>
 #include <stdint.h>
-#include <stdio.h>
-#include <string.h>
 
-#include "pico/stdlib.h"
-#include "lwip/netif.h"
-#include "lwip/init.h"
-#include "lwip/etharp.h"
-#include "lwip/dhcp.h"
-#include "lwip/timeouts.h"
-#include "lwip/pbuf.h"
+#include "lwip/ip_addr.h"
 
 #include "picopioeth.h"
 
@@ -35,7 +28,7 @@
 
 struct ethpio_parameters
 {
-    uint8_t pioNum;
+    uint8_t pio_num;
     uint8_t mac_address[6];
     uint8_t tx_neg_pin;
     uint8_t rx_pin;
@@ -43,7 +36,6 @@ struct ethpio_parameters
     ip4_addr_t default_netmask_v4;
     ip4_addr_t default_gateway_v4;
     char hostname[16];
-    bool enable_dhcp_client;
 };
 
 typedef struct ethpio_parameters ethpio_parameters_t;

@@ -6,6 +6,14 @@
 
 #include "picopioeth.h"
 
+#include <string.h>
+
+#include "pico/time.h"
+#include "hardware/dma.h"
+#include "hardware/pio.h"
+
+#include "ethserdes.pio.h"
+
 uint8_t eth_tx_neg_pin, eth_rx_pos_pin;
 PIO eth_pio;
 const uint8_t ser_sm = 0u, des_sm = 1u, det_sm = 2u;
