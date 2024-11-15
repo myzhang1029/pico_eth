@@ -12,11 +12,11 @@ pico_sdk_init()
 add_library(pico_eth)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
-    ${CMAKE_CURRENT_LIST_DIR}/.
+    ${CMAKE_CURRENT_LIST_DIR}
 )
 
 pico_generate_pio_header(${PROJECT_NAME}
-        ${CMAKE_CURRENT_LIST_DIR}/ethserdes.pio
+    ${CMAKE_CURRENT_LIST_DIR}/ethserdes.pio
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
