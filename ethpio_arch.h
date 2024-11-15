@@ -15,14 +15,14 @@
 #include "picopioeth.h"
 
 #define MAC_ADDR(m, a, b, c, d, e, f) \
-    {                                 \
+    do {                              \
         m[0] = a;                     \
         m[1] = b;                     \
         m[2] = c;                     \
         m[3] = d;                     \
         m[4] = e;                     \
         m[5] = f;                     \
-    }
+    } while (0)
 
 #define LWIP_TO_CHK_PERIOD_US 1000
 
